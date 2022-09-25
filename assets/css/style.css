@@ -1,0 +1,117 @@
+:root {
+    --body-color: #f9fbfd;
+    --line-color: grey;
+    --font-color: black;
+    --button-color: #351c75;
+    --button-font-color: white;
+    --button-clicked-color: #bb5be6;
+    --h1-font-size: 18px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: sans-serif;
+  background-color: var(--body-color);
+}
+
+.quiz-main {
+  background-color: var(--button-font-color);
+  border-color: var(--line-color);
+  border-radius: 5px;
+  border-style: solid;
+  border-width: 2px;
+  margin: auto;
+  max-width: 80%;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+  padding: 20px;
+  padding-top: 0px;
+  color: var(--font-color);
+}
+
+header h1 {
+    display: inline;
+}
+
+.scores {
+    font-size: var(--h1-font-size);
+    color: var(--button-clicked-color);
+}
+
+.timer {
+    font-size: var(--h1-font-size);
+    color: var(--font-color);
+}
+
+.card {
+  background-color: hsl(0, 0%, 100%);
+  color: var(--font-color);
+  font-size: 18px;
+  margin: 0 auto;
+  max-width: 80%;
+  padding: 30px 40px;
+  text-align: center;
+}
+
+.card-body {
+  min-height: 100px;
+}
+
+.card-footer {
+  text-align: center;
+}
+
+.btn {
+  border: none;
+  background-color: var(--button-color);
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 6px 0px rgba(0, 0, 0, 0.2) 0px 1px 1px
+    0px;
+  color: var(--button-font-color);
+  display: inline-block;
+  font-size: 22px;
+  line-height: 22px;
+  margin: 16px 16px 16px 20px;
+  padding: 14px 34px;
+  text-align: center;
+  cursor: pointer;
+}
+
+button[disabled] {
+  cursor: default;
+  background: #c0c7cf;
+}
+
+@media (max-width: 690px) {
+  .btn {
+    font-size: 1rem;
+    margin: 16px 0px 0px 0px;
+    padding: 10px 15px;
+  }
+
+  #start {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 500px) {
+  .btn {
+    font-size: 0.8rem;
+  }
+}
