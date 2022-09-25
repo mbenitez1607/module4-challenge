@@ -73,6 +73,11 @@ header h1 {
   min-height: 100px;
 }
 
+.card-body li::after{
+    background-color: var(--button-color);
+    color: var(--button-font-color);
+}
+
 .card-footer {
   text-align: center;
 }
