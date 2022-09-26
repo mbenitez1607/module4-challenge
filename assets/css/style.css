@@ -103,6 +103,10 @@ button[disabled] {
   background: #c0c7cf;
 }
 
+.btn:hover {
+    background-color: var(--button-clicked-color);
+}
+
 @media (max-width: 690px) {
   .btn {
     font-size: 1rem;
