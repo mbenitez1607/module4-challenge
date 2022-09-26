@@ -54,7 +54,7 @@ header h1 {
     color: var(--button-clicked-color);
 }
 
-.timer {
+.countdown {
     font-size: var(--h1-font-size);
     color: var(--font-color);
 }
