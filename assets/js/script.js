@@ -2,21 +2,25 @@
 // Get references to the #start element
 var startBtn = document.querySelector("#start");
 var quizHeader = document.querySelector(".card-h2");
+var score = 0;
 
 // Start the quiz on #start
 function startQuiz() {
     var numOfQuestions = 5;
+    var nextQuestion = 0;
     timer = 75000;
     // Remove text from welcome screen
     p1.textContent = p2.textContent = "";
     startBtn.textContent = "";
     startBtn.setAttribute("style", "visibility:hidden");
 
-    //for (q = 0; q < numOfQuestions; q++) {
-    displayQuestions(0);
-    //}
+    displayQuestion(nextQuestion);
 
-    function displayQuestions(question) {
+    function setQuizHeader(newText) {
+        quizHeader.textContent = newText;
+    }
+
+    function displayQuestion(question) {
         // Update numOfQuestions in startQuiz after adding more question/answer pairs below
         var questions = ["Commonly used data types DO NOT include:",
             "A very useful tool used during development and debugging for printing content to the debugger is:",
@@ -30,11 +34,11 @@ function startQuiz() {
         ["commas", "curly brackets", "quotes", "parenthesis"]
         ];
         // Display next question
-        quizHeader.textContent = questions[question];
+        setQuizHeader(questions[question]);
         // Display next answer
         displayAnswers(answers[question]);
     }
-
+    function createButtons() { }
     function displayAnswers(ans) {
         var body = document.body;
         // Declare the style for the answer's buttons
@@ -55,45 +59,79 @@ function startQuiz() {
 
         // Create event listeners for each answer button
         var ans1 = quizBody.children[2];
-        console.log(ans1);
+        //console.log(ans1);
         ans1.addEventListener("click", function (event) {
-            ans1.setAttribute("style",buttonStyleOnClick);
+            //event.preventDefault();
+            ans1.setAttribute("style", buttonStyleOnClick);
             verifyAnswer(ans1.textContent);
-         });
+        });
         var ans2 = quizBody.children[3];
         ans2.addEventListener("click", function (event) {
-            ans2.setAttribute("style",buttonStyleOnClick);
-             verifyAnswer(ans2.textContent);
+            //event.preventDefault();
+            ans2.setAttribute("style", buttonStyleOnClick);
+            verifyAnswer(ans2.textContent);
         });
         var ans3 = quizBody.children[4];
         ans3.addEventListener("click", function (event) {
-            ans3.setAttribute("style",buttonStyleOnClick);
+            //event.preventDefault();
+            ans3.setAttribute("style", buttonStyleOnClick);
             verifyAnswer(ans3.textContent);
         });
         var ans4 = quizBody.children[5];
         ans4.addEventListener("click", function (event) {
-            ans4.setAttribute("style",buttonStyleOnClick);
+            //event.preventDefault();
+            ans4.setAttribute("style", buttonStyleOnClick);
             verifyAnswer(ans4.textContent);
         });
     }
 
     function verifyAnswer(userAnswer) {
         var correctAnswerIndex = ["3. alerts", "4. console log", "2. curly brackets", "4. all of the above", "3. quotes"];
+        var wrongAnswer = 0; // Correct answer
         console.log("userAnswer = " + userAnswer);
-        if (userAnswer != correctAnswerIndex[0]) {
+        console.log("correctAnswer = " + correctAnswerIndex[nextQuestion])
+        if (userAnswer != correctAnswerIndex[nextQuestion++]) {
+            wrongAnswer = 1; // Wrong answer
             timer = timer - 10000;
             console.log("Wrong answer");
             var quizFooter = document.querySelector(".card-footer");
             var newhr = document.createElement("hr");
-            newhr.setAttribute("width","100%");
+            newhr.setAttribute("width", "100%");
             var newH2 = document.createElement("h2");
             newH2.textContent = "Wrong!";
-            newH2.setAttribute("style","color:grey;text-align:left;font-size:20px");
+            newH2.setAttribute("style", "color:grey;text-align:left;font-size:20px");
             quizFooter.appendChild(newhr);
             quizFooter.append(newH2);
+        } else {
+            score++;
+        }
+        if (nextQuestion >= numOfQuestions) {
+        // There are no more questions, print final results
+            setQuizHeader("All Done!");
+            resetContent(wrongAnswer);
+            var newH2 = document.createElement("h2");
+            newH2.textContent = "Your final score is " + score;
+            var quizBody = document.querySelector(".card-body");
+            quizBody.appendChild(newH2);
+        } else {
+        resetContent(wrongAnswer);
+        displayQuestion(nextQuestion);
         }
     }
-}
+    function resetContent(answer) {
+        var quizBody = document.getElementsByClassName("card-body")[0];
+        //console.log(quizBody.children)[2];
+        quizBody.removeChild(quizBody.children[5]);
+        quizBody.removeChild(quizBody.children[4]);
+        quizBody.removeChild(quizBody.children[3]);
+        quizBody.removeChild(quizBody.children[2]);
+        if (answer) {
+            var quizFooter = document.querySelector(".card-footer");
+            quizFooter.removeChild(quizFooter.children[2]);
+            quizFooter.removeChild(quizFooter.children[1]);
+        }
+    }
+} // end of StartQuiz
 
-// Add event listener to 'Start Quiz' button
-startBtn.addEventListener("click", startQuiz);
+    // Add event listener to 'Start Quiz' button
+    startBtn.addEventListener("click", startQuiz);
